@@ -12,15 +12,17 @@ class CartComponent extends Component
     {
         $product = Cart::get($rowId);
         $qty = $product->qty + 1;
+        // dd($qty);
         Cart::update($rowId,$qty);
-        return redirect()->route('product.cart');
+        // return redirect()->route('product.cart');
+        
     }
     public function decreaseQuantity($rowId)
     {
         $product = Cart::get($rowId);
         $qty = $product->qty - 1;
         Cart::update($rowId,$qty);
-        return redirect()->route('product.cart');
+        // return redirect()->route('product.cart');
     }
 
     // Delete Cart Item
@@ -28,7 +30,7 @@ class CartComponent extends Component
     {
         Cart::remove($rowId);
         session()->flash('success_message', 'Item has been removed!');
-        return redirect()->route('product.cart');
+        // return redirect()->route('product.cart');
     }
     public function destroyAll()
     {

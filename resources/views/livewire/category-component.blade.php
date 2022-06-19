@@ -5,8 +5,9 @@
 
         <div class="wrap-breadcrumb">
             <ul>
-                <li class="item-link"><a href="#" class="link">home</a></li>
-                <li class="item-link"><span>Digital & Electronics</span></li>
+                <li class="item-link"><a href="/" class="link">home</a></li>
+                <li class="item-link"><span>Product Categories</span></li>
+                <li class="item-link"><span>{{ $category_name }}</span></li>
             </ul>
         </div>
         <div class="row">
@@ -21,7 +22,7 @@
 
                 <div class="wrap-shop-control">
 
-                    <h1 class="shop-title">Digital & Electronics</h1>
+                    <h1 class="shop-title">{{ $category_name }}</h1>
 
                     <div class="wrap-right">
 
@@ -89,7 +90,7 @@
 
                             @foreach ($categories as $category)
                                 <li class="category-item">
-                                    <a href="{{ route('product.category', ['category_slug'=>$category->slug]) }}" class="cate-link">{{ $category->name }}</a>
+                                    <a href="{{ route('product.category',['category_slug'=>$category->slug]) }}" class="cate-link">{{ $category->name }}</a>
                                 </li>
                             @endforeach
                             

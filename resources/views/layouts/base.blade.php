@@ -47,10 +47,10 @@
 								<li class="menu-item lang-menu menu-item-has-children parent">
 									<a title="English" href="#"><span class="img label-before"><img src="{{ asset('assets/images/lang-en.png') }}" alt="lang-en"></span>English<i class="fa fa-angle-down" aria-hidden="true"></i></a>
 									<ul class="submenu lang" >
-										<li class="menu-item" ><a title="hungary" href="#"><span class="img label-before"><img src="assets/images/lang-hun.png" alt="lang-hun"></span>Hungary</a></li>
-										<li class="menu-item" ><a title="german" href="#"><span class="img label-before"><img src="assets/images/lang-ger.png" alt="lang-ger" ></span>German</a></li>
-										<li class="menu-item" ><a title="french" href="#"><span class="img label-before"><img src="assets/images/lang-fra.png" alt="lang-fre"></span>French</a></li>
-										<li class="menu-item" ><a title="canada" href="#"><span class="img label-before"><img src="assets/images/lang-can.png" alt="lang-can"></span>Canada</a></li>
+										<li class="menu-item" ><a title="hungary" href="#"><span class="img label-before"><img src="{{ asset('assets/images/lang-hun.png') }}" alt="lang-hun"></span>Hungary</a></li>
+										<li class="menu-item" ><a title="german" href="#"><span class="img label-before"><img src="{{ asset('assets/images/lang-ger.png') }}" alt="lang-ger" ></span>German</a></li>
+										<li class="menu-item" ><a title="french" href="#"><span class="img label-before"><img src="{{ asset('assets/images/lang-fra.png') }}" alt="lang-fre"></span>French</a></li>
+										<li class="menu-item" ><a title="canada" href="#"><span class="img label-before"><img src="{{ asset('assets/images/lang-can.png') }}" alt="lang-can"></span>Canada</a></li>
 									</ul>
 								</li>
 
@@ -73,12 +73,17 @@
 								@if (Route::has('login'))
 									@auth
 										@if (Auth::user()->utype === 'ADM')
+
 											{{-- Admin --}}
 											<li class="menu-item menu-item-has-children parent" >
 												<a title="My Account" href="#">My Account ({{ Auth::user()->name }})<i class="fa fa-angle-down" aria-hidden="true"></i></a>
 												<ul class="submenu curency" >
 													<li class="menu-item" >
 														<a title="Dashboard" href="{{ route('admin.dashboard') }}">Dashboard</a>
+													</li>
+													{{-- Admin Category Page --}}
+													<li class="menu-item" >
+														<a title="Categories" href="{{ route('admin.categories') }}">Categories</a>
 													</li>
 													<li class="menu-item">
 														<a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
@@ -89,6 +94,7 @@
 												</ul>
 											</li>
 										@else
+
 											{{-- User --}}
 											<li class="menu-item menu-item-has-children parent" >
 												<a title="My Account" href="#">My Account ({{ Auth::user()->name }})<i class="fa fa-angle-down" aria-hidden="true"></i></a>
@@ -122,37 +128,8 @@
 							<a href="index.html" class="link-to-home"><img src="{{ asset('assets/images/logo-top-1.png') }}" alt="mercado"></a>
 						</div>
 
-						<div class="wrap-search center-section">
-							<div class="wrap-search-form">
-								<form action="#" id="form-search-top" name="form-search-top">
-									<input type="text" name="search" value="" placeholder="Search here...">
-									<button form="form-search-top" type="button"><i class="fa fa-search" aria-hidden="true"></i></button>
-									<div class="wrap-list-cate">
-										<input type="hidden" name="product-cate" value="0" id="product-cate">
-										<a href="#" class="link-control">All Category</a>
-										<ul class="list-cate">
-											<li class="level-0">All Category</li>
-											<li class="level-1">-Electronics</li>
-											<li class="level-2">Batteries & Chargens</li>
-											<li class="level-2">Headphone & Headsets</li>
-											<li class="level-2">Mp3 Player & Acessories</li>
-											<li class="level-1">-Smartphone & Table</li>
-											<li class="level-2">Batteries & Chargens</li>
-											<li class="level-2">Mp3 Player & Headphones</li>
-											<li class="level-2">Table & Accessories</li>
-											<li class="level-1">-Electronics</li>
-											<li class="level-2">Batteries & Chargens</li>
-											<li class="level-2">Headphone & Headsets</li>
-											<li class="level-2">Mp3 Player & Acessories</li>
-											<li class="level-1">-Smartphone & Table</li>
-											<li class="level-2">Batteries & Chargens</li>
-											<li class="level-2">Mp3 Player & Headphones</li>
-											<li class="level-2">Table & Accessories</li>
-										</ul>
-									</div>
-								</form>
-							</div>
-						</div>
+						{{-- Search Products --}}
+						@livewire('header-search-component')
 
 						<div class="wrap-icon right-section">
 							<div class="wrap-icon-section wishlist">
@@ -372,7 +349,7 @@
 								<h3 class="item-header">We Using Safe Payments:</h3>
 								<div class="item-content">
 									<div class="wrap-list-item wrap-gallery">
-										<img src="assets/images/payment.png" style="max-width: 260px;">
+										<img src="{{ asset('assets/images/payment.png') }}" style="max-width: 260px;">
 									</div>
 								</div>
 							</div>
@@ -401,8 +378,8 @@
 								<div class="item-content">
 									<div class="wrap-list-item apps-list">
 										<ul>
-											<li><a href="#" class="link-to-item" title="our application on apple store"><figure><img src="assets/images/brands/apple-store.png" alt="apple store" width="128" height="36"></figure></a></li>
-											<li><a href="#" class="link-to-item" title="our application on google play store"><figure><img src="assets/images/brands/google-play-store.png" alt="google play store" width="128" height="36"></figure></a></li>
+											<li><a href="#" class="link-to-item" title="our application on apple store"><figure><img src="{{ asset('assets/images/brands/apple-store.png') }}" alt="apple store" width="128" height="36"></figure></a></li>
+											<li><a href="#" class="link-to-item" title="our application on google play store"><figure><img src="{{ asset('assets/images/brands/google-play-store.png') }}" alt="google play store" width="128" height="36"></figure></a></li>
 										</ul>
 									</div>
 								</div>
