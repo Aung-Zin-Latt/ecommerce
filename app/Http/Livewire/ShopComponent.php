@@ -31,15 +31,15 @@ class ShopComponent extends Component
     {
         // Product Sorting and Products Per Page
         if ($this->sorting == 'date') {
-            $products = Product::ordeBy('created_at', 'DESC')->paginate($this->pagesize);
+            $products = Product::orderBy('created_at', 'DESC')->paginate($this->pagesize);
         }
         else if($this->sorting == 'price')
         {
-            $products = Product::ordeBy('regular_price', 'ASC')->paginate($this->pagesize);
+            $products = Product::orderBy('regular_price', 'ASC')->paginate($this->pagesize);
         }
         else if($this->sorting == 'price-desc')
         {
-            $products = Product::ordeBy('regular_price', 'DESC')->paginate($this->pagesize);
+            $products = Product::orderBy('regular_price', 'DESC')->paginate($this->pagesize);
         }
         else
         {

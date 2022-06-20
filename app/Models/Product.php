@@ -11,4 +11,10 @@ class Product extends Model
 
     // Making Shop Page Products Dynamic
     protected $table = 'products';
+
+    // Admin Product Page
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'category_id');
+    }
 }
