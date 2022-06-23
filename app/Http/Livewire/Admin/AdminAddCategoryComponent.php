@@ -17,8 +17,23 @@ class AdminAddCategoryComponent extends Component
     {
         $this->slug = Str::slug($this->name);
     }
+
+    // Form Validation for add category
+    public function updated($fields)    // hook method
+    {
+        $this->validateOnly($fields, [
+            'name' => 'required',
+            'slug' => 'required|unique:categories',
+        ]);
+    }
     public function storeCategory()
     {
+        // Form Validation for add category
+        $this->validate([
+            'name' => 'required',
+            'slug' => 'required|unique:categories',  // categories is table name
+        ]);
+
         $category = new Category();
         $category->name = $this->name;
         $category->slug = $this->slug;

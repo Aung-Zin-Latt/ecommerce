@@ -35,8 +35,43 @@ class AdminAddProductComponent extends Component
     {
         $this->slug = Str::slug($this->name, '-');    // '-' means "separator"
     }
+
+    // Form Validation for add Product
+    public function updated($fields)    // hook method
+    {
+        $this->validateOnly($fields, [
+            'name' => 'required',
+            'slug' => 'required|unique:products',  // products is a table name
+            'short_description' => 'required',
+            'description' => 'required',
+            'regular_price' => 'required|numeric',
+            'sale_price' => 'numeric',
+            'SKU' => 'required',
+            'stock_status' => 'required',
+            'featured' => 'required',
+            'quantity' => 'required|numeric',
+            'image' => 'required|mimes:jpeg,png',
+            'category_id' => 'required',
+        ]);
+    }
     public function storeProduct()
     {
+        // Form Validation for add Product
+        $this->validate([
+            'name' => 'required',
+            'slug' => 'required|unique:products',  // products is a table name
+            'short_description' => 'required',
+            'description' => 'required',
+            'regular_price' => 'required|numeric',
+            'sale_price' => 'numeric',
+            'SKU' => 'required',
+            'stock_status' => 'required',
+            'featured' => 'required',
+            'quantity' => 'required|numeric',
+            'image' => 'required|mimes:jpeg,png',
+            'category_id' => 'required',
+        ]);
+
         $product = new Product();
         $product->name = $this->name;
         $product->slug = $this->slug;
@@ -47,7 +82,7 @@ class AdminAddProductComponent extends Component
         $product->SKU = $this->SKU;
         $product->stock_status = $this->stock_status;
         $product->quantity = $this->quantity;
-        $imageName = Carbon::now()->timestamp. '.' . $this->image->extension();     // go config/filesystems.php => 'local' 
+        $imageName = Carbon::now()->timestamp. '.' . $this->image->extension(); // go config/filesystems.php => 'local' 
         $this->image->storeAs('products', $imageName);
         $product->image = $imageName;
         // dd($product->image);
