@@ -11,18 +11,35 @@ class DetailsComponent extends Component
 {
     // Create Product Details Page
     public $slug;
+    // for increase & decrease price
+    public $qty;
 
     public function mount($slug) 
     {
         $this->slug = $slug;
+        // for increase & decrease price
+        $this->qty = 1;
     }
 
     // Shopping Cart
     public function store($product_id, $product_name, $product_price)
     {
-        Cart::add($product_id, $product_name, 1, $product_price)->associate('App\Models\Product');
+        Cart::instance('cart')->add($product_id, $product_name, $this->qty, $product_price)->associate('App\Models\Product');
         session()->flash('success_message', 'Item added in Cart!');
         return redirect()->route('product.cart');
+    }
+ 
+    public function increaseQuantity()
+    {
+        $this->qty++;
+        // dd($this->qty);
+    }
+    public function decreaseQuantity()
+    {
+        if($this->qty > 1)
+        {
+            $this->qty--;
+        }
     }
 
     public function render()

@@ -5,7 +5,7 @@
 
         <div class="wrap-breadcrumb">
             <ul>
-                <li class="item-link"><a href="#" class="link">home</a></li>
+                <li class="item-link"><a href="/" class="link">home</a></li>
                 <li class="item-link"><span>Digital & Electronics</span></li>
             </ul>
         </div>
@@ -55,30 +55,29 @@
 
                 </div><!--end wrap shop control-->
 
+                <style>
+                    .product-wish{
+                        position: absolute;
+                        top: 10%;
+                        left: 0;
+                        z-index: 99;
+                        right: 30px;
+                        text-align: right;
+                        padding-top: 0;
+                    }
+                    .product-wish .fa{
+                        color: #cbcbcb;
+                        font-size: 32px;
+                    }
+                    .product-wish .fa:hover{
+                        color: #ff7007;
+                    }
+                    .fill-heart{
+                        color: #ff7007 !important;
+                    }
+                </style>
+
                 <div class="row">
-
-                    <style>
-                        .product-wish{
-                            position: absolute;
-                            top: 10%;
-                            left: 0;
-                            z-index: 99;
-                            right: 30px;
-                            text-align: right;
-                            padding-top: 0;
-                        }
-                        .product-wish .fa{
-                            color: #cbcbcb;
-                            font-size: 32px;
-                        }
-                        .product-wish .fa:hover{
-                            color: #ff7007;
-                        }
-                        .fill-heart{
-                            color: #ff7007 !important;
-                        }
-                    </style>
-
                     <ul class="product-list grid-products equal-container">
                         {{-- add to wishlist start --}}
                         @php
@@ -101,7 +100,7 @@
                                         {{-- WishList --}}
                                         <div class="product-wish">
                                             @if ($witems->contains($product->id))
-                                                <a href="#"><i class="fa fa-heart fill-heart"></i></a>                                                
+                                                <a href="#" wire:click.prevent="removeFromWishlist({{ $product->id }})"><i class="fa fa-heart fill-heart"></i></a>                                                
                                             @else
                                                 <a href="#" wire:click.prevent="addToWishlist({{$product->id}}, '{{$product->name}}', {{$product->regular_price}})"><i class="fa fa-heart"></i></a>
                                             @endif

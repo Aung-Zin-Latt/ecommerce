@@ -1,13 +1,16 @@
 <?php
 
 use App\Http\Livewire\Admin\AdminAddCategoryComponent;
+use App\Http\Livewire\Admin\AdminAddCouponComponent;
 use App\Http\Livewire\Admin\AdminAddHomeSliderComponent;
 use App\Http\Livewire\Admin\AdminAddProductComponent;
 use App\Http\Livewire\User\UserDashboardComponent;
 use App\Http\Livewire\Admin\AdminDashboardComponent;
 
 use App\Http\Livewire\Admin\AdminCategoryComponent;
+use App\Http\Livewire\Admin\AdminCouponsComponent;
 use App\Http\Livewire\Admin\AdminEditCategoryComponent;
+use App\Http\Livewire\Admin\AdminEditCouponComponent;
 use App\Http\Livewire\Admin\AdminEditHomeSliderComponent;
 use App\Http\Livewire\Admin\AdminEditProductComponent;
 use App\Http\Livewire\Admin\AdminHomeCategoryComponent;
@@ -21,6 +24,7 @@ use App\Http\Livewire\CheckoutComponent;
 use App\Http\Livewire\DetailsComponent;
 use App\Http\Livewire\HomeComponent;
 use App\Http\Livewire\SearchComponent;
+use App\Http\Livewire\WishlistComponent;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -56,6 +60,9 @@ Route::get('/product-category/{category_slug}', CategoryComponent::class)->name(
 // Search Products
 Route::get('/search', SearchComponent::class)->name('product.search');
 
+// Show All Wishlisted Products
+Route::get('/wishlist', WishlistComponent::class)->name('product.wishlist');
+
 
 // For User or Customer
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
@@ -88,5 +95,10 @@ Route::middleware(['auth:sanctum', 'verified', 'authadmin'])->group(function () 
 
     // Admin Making On Sale Timer Working
     Route::get('/admin/sale', AdminSaleComponent::class)->name('admin.sale');
+
+    // Admin Create Coupons
+    Route::get('/admin/coupons', AdminCouponsComponent::class)->name('admin.coupons');
+    Route::get('/admin/coupon/add', AdminAddCouponComponent::class)->name('admin.addcoupon');
+    Route::get('/admin/coupon/edit/{coupon_id}', AdminEditCouponComponent::class)->name('admin.editcoupon');
 
 });
