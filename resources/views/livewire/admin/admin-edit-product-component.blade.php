@@ -27,21 +27,21 @@
                                     @error('name') <p class="text-danger">{{ $message }}</p> @enderror
                                 </div>
                             </div>
-                            
+
                             <div class="form-group">
                                 <label for="name" class="col-md-4 control-label">Product Slug</label>
                                 <div class="col-md-4">
                                     <input type="text" placeholder="Product Name" class="form-control input-md" wire:model='slug'>
                                     @error('slug') <p class="text-danger">{{ $message }}</p> @enderror
-                                </div>                                
+                                </div>
                             </div>
-                            
+
                             <div class="form-group">
                                 <label for="short_desc" class="col-md-4 control-label">Short Description</label>
                                 <div class="col-md-4">
                                     <textarea name="sh_description" class="form-control" placeholder="Short Description" wire:model='short_description'></textarea>
-                                    @error('short_description') <p class="text-danger">{{ $message }}</p> @enderror                                    
-                                </div>                                
+                                    @error('short_description') <p class="text-danger">{{ $message }}</p> @enderror
+                                </div>
                             </div>
 
                             <div class="form-group">
@@ -49,7 +49,7 @@
                                 <div class="col-md-4">
                                     <textarea name="description" class="form-control" placeholder="Description" wire:model='description'></textarea>
                                     @error('description') <p class="text-danger">{{ $message }}</p> @enderror
-                                </div>                                
+                                </div>
                             </div>
 
                             <div class="form-group">
@@ -57,7 +57,7 @@
                                 <div class="col-md-4">
                                     <input type="text" placeholder="Regular Price" class="form-control input-md" wire:model='regular_price'>
                                     @error('regular_price') <p class="text-danger">{{ $message }}</p> @enderror
-                                </div>                                
+                                </div>
                             </div>
 
                             <div class="form-group">
@@ -65,7 +65,7 @@
                                 <div class="col-md-4">
                                     <input type="text" placeholder="Sale Price" class="form-control input-md" wire:model='sale_price'>
                                     @error('sale_price') <p class="text-danger">{{ $message }}</p> @enderror
-                                </div>                                
+                                </div>
                             </div>
 
                             <div class="form-group">
@@ -73,7 +73,7 @@
                                 <div class="col-md-4">
                                     <input type="text" placeholder="SKU" class="form-control input-md" wire:model='SKU'>
                                     @error('SKU') <p class="text-danger">{{ $message }}</p> @enderror
-                                </div>                                
+                                </div>
                             </div>
 
                             <div class="form-group">
@@ -84,7 +84,7 @@
                                         <option value="outofstock">Out of Stock</option>
                                     </select>
                                     @error('stock_status') <p class="text-danger">{{ $message }}</p> @enderror
-                                </div>                                
+                                </div>
                             </div>
 
                             <div class="form-group">
@@ -95,7 +95,7 @@
                                         <option value="1">Yes</option>
                                     </select>
                                     @error('featured') <p class="text-danger">{{ $message }}</p> @enderror
-                                </div>                                
+                                </div>
                             </div>
 
                             <div class="form-group">
@@ -103,7 +103,7 @@
                                 <div class="col-md-4">
                                     <input type="text" placeholder="Quantity" class="form-control input-md" wire:model='quantity'>
                                     @error('quantity') <p class="text-danger">{{ $message }}</p> @enderror
-                                </div>                                
+                                </div>
                             </div>
 
                             <div class="form-group">
@@ -116,7 +116,7 @@
                                         <img src="{{ asset('assets/images/products') }}/{{$image}}" alt="" width="120">
                                     @endif
                                     @error('newimage') <p class="text-danger">{{ $message }}</p> @enderror
-                                </div>                                
+                                </div>
                             </div>
 
                             <div class="form-group">
@@ -129,14 +129,14 @@
                                         @endforeach
                                     </select>
                                     @error('category_id') <p class="text-danger">{{ $message }}</p> @enderror
-                                </div>                                
+                                </div>
                             </div>
 
                             <div class="form-group">
                                 <label for="p_image" class="col-md-4 control-label"></label>
                                 <div class="col-md-4">
                                     <button type="submit" class="btn btn-primary">Update</button>
-                                </div>                                
+                                </div>
                             </div>
 
                         </form>

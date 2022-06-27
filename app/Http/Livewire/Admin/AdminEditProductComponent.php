@@ -56,7 +56,7 @@ class AdminEditProductComponent extends Component
     {
         $this->validateOnly($fields, [
             'name' => 'required',
-            'slug' => 'required|unique:products',  // products is a table name
+            'slug' => 'required',  // products is a table name
             'short_description' => 'required',
             'description' => 'required',
             'regular_price' => 'required|numeric',
@@ -65,7 +65,7 @@ class AdminEditProductComponent extends Component
             'stock_status' => 'required',
             'featured' => 'required',
             'quantity' => 'required|numeric',
-            'newimage' => 'required|mimes:jpeg,png,jpg',
+            // 'newimage' => 'required|mimes:jpeg,png',
             'category_id' => 'required',
         ]);
     }
@@ -74,7 +74,7 @@ class AdminEditProductComponent extends Component
         // Form Validation for edit Product
         $this->validate([
             'name' => 'required',
-            'slug' => 'required|unique:products',  // products is a table name
+            'slug' => 'required',  // products is a table name
             'short_description' => 'required',
             'description' => 'required',
             'regular_price' => 'required|numeric',
@@ -83,7 +83,7 @@ class AdminEditProductComponent extends Component
             'stock_status' => 'required',
             'featured' => 'required',
             'quantity' => 'required|numeric',
-            'newimage' => 'required|mimes:jpeg,png,jpg',
+            // 'newimage' => 'required|mimes:jpeg,png',
             'category_id' => 'required',
         ]);
 
@@ -98,7 +98,7 @@ class AdminEditProductComponent extends Component
         $product->stock_status = $this->stock_status;
         $product->quantity = $this->quantity;
         if ($this->newimage) {
-            $imageName = Carbon::now()->timestamp. '.' . $this->newimage->extension();     // go config/filesystems.php => 'local' 
+            $imageName = Carbon::now()->timestamp. '.' . $this->newimage->extension();     // go config/filesystems.php => 'local'
             $this->newimage->storeAs('products', $imageName);
             $product->image = $imageName;
             // dd($product->image);
@@ -106,6 +106,7 @@ class AdminEditProductComponent extends Component
         $product->category_id = $this->category_id;
         $product->save();
         session()->flash('message', 'Product has been updated successfully!');
+        return redirect()->route('admin.products');
     }
 
     public function render()

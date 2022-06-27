@@ -15,6 +15,8 @@ use App\Http\Livewire\Admin\AdminEditHomeSliderComponent;
 use App\Http\Livewire\Admin\AdminEditProductComponent;
 use App\Http\Livewire\Admin\AdminHomeCategoryComponent;
 use App\Http\Livewire\Admin\AdminHomeSliderComponent;
+use App\Http\Livewire\Admin\AdminOrderComponent;
+use App\Http\Livewire\Admin\AdminOrderDetailsComponent;
 use App\Http\Livewire\Admin\AdminProductComponent;
 use App\Http\Livewire\Admin\AdminSaleComponent;
 use App\Http\Livewire\ShopComponent;
@@ -24,6 +26,10 @@ use App\Http\Livewire\CheckoutComponent;
 use App\Http\Livewire\DetailsComponent;
 use App\Http\Livewire\HomeComponent;
 use App\Http\Livewire\SearchComponent;
+use App\Http\Livewire\ThankyouComponent;
+use App\Http\Livewire\User\UserOrderDetailsComponent;
+use App\Http\Livewire\User\UserOrdersComponent;
+use App\Http\Livewire\User\UserReviewComponent;
 use App\Http\Livewire\WishlistComponent;
 use Illuminate\Support\Facades\Route;
 
@@ -49,7 +55,7 @@ Route::get('/', HomeComponent::class);
 Route::get('/shop', ShopComponent::class);
 // Shopping Cart
 Route::get('/cart', CartComponent::class)->name('product.cart');
-Route::get('/checkout', CheckoutComponent::class);
+Route::get('/checkout', CheckoutComponent::class)->name('checkout');
 
 // Create Product Details Page
 Route::get('/product/{slug}', DetailsComponent::class)->name('product.details');
@@ -63,11 +69,22 @@ Route::get('/search', SearchComponent::class)->name('product.search');
 // Show All Wishlisted Products
 Route::get('/wishlist', WishlistComponent::class)->name('product.wishlist');
 
+// For Thankyou
+Route::get('/thank-you', ThankyouComponent::class)->name('thankyou');
+
 
 // For User or Customer
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/user/dashboard', UserDashboardComponent::class)->name('user.dashboard');
+
+    // Show Orders and Order Details for User
+    Route::get('/user/orders', UserOrdersComponent::class)->name('user.orders');
+    Route::get('/user/orders/{order_id}', UserOrderDetailsComponent::class)->name('user.orderdetails');
+    Route::get('/user/review/{order_item_id}', UserReviewComponent::class)->name('user.review');
 });
+
+
+
 // For Admin
 Route::middleware(['auth:sanctum', 'verified', 'authadmin'])->group(function () {
     Route::get('/admin/dashboard', AdminDashboardComponent::class)->name('admin.dashboard');
@@ -100,5 +117,11 @@ Route::middleware(['auth:sanctum', 'verified', 'authadmin'])->group(function () 
     Route::get('/admin/coupons', AdminCouponsComponent::class)->name('admin.coupons');
     Route::get('/admin/coupon/add', AdminAddCouponComponent::class)->name('admin.addcoupon');
     Route::get('/admin/coupon/edit/{coupon_id}', AdminEditCouponComponent::class)->name('admin.editcoupon');
+
+    // Admin Show Orders
+    Route::get('/admin/orders', AdminOrderComponent::class)->name('admin.orders');
+
+    //Admin Show Order Details
+    Route::get('/admin/orders/{order_id}', AdminOrderDetailsComponent::class)->name('admin.orderdetails');
 
 });
