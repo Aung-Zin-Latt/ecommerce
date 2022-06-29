@@ -9,6 +9,8 @@ use App\Models\Transaction;
 use Cart;
 use Exception;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\OrderMail;
 use Livewire\Component;
 use Stripe;
 
@@ -253,6 +255,9 @@ class CheckoutComponent extends Component
                 $this->thankyou = 0;
             }
         }
+
+        // make order confirmation email
+        // $this->sendOrderConfirmationMail($order);
     }
 
     // Checkout With Stripe
@@ -272,6 +277,12 @@ class CheckoutComponent extends Component
         $transaction->status = $status;
         $transaction->save();
     }
+
+    // make order confirmation email
+    // public function sendOrderConfirmationMail($order)
+    // {
+    //     Mail::to($order->email)->send(new OrderMail($order));
+    // }
 
     public function verifyForCheckout()
     {

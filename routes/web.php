@@ -8,6 +8,7 @@ use App\Http\Livewire\User\UserDashboardComponent;
 use App\Http\Livewire\Admin\AdminDashboardComponent;
 
 use App\Http\Livewire\Admin\AdminCategoryComponent;
+use App\Http\Livewire\Admin\AdminContactComponent;
 use App\Http\Livewire\Admin\AdminCouponsComponent;
 use App\Http\Livewire\Admin\AdminEditCategoryComponent;
 use App\Http\Livewire\Admin\AdminEditCouponComponent;
@@ -19,14 +20,17 @@ use App\Http\Livewire\Admin\AdminOrderComponent;
 use App\Http\Livewire\Admin\AdminOrderDetailsComponent;
 use App\Http\Livewire\Admin\AdminProductComponent;
 use App\Http\Livewire\Admin\AdminSaleComponent;
+use App\Http\Livewire\Admin\AdminSettingComponent;
 use App\Http\Livewire\ShopComponent;
 use App\Http\Livewire\CartComponent;
 use App\Http\Livewire\CategoryComponent;
 use App\Http\Livewire\CheckoutComponent;
+use App\Http\Livewire\ContactComponent;
 use App\Http\Livewire\DetailsComponent;
 use App\Http\Livewire\HomeComponent;
 use App\Http\Livewire\SearchComponent;
 use App\Http\Livewire\ThankyouComponent;
+use App\Http\Livewire\User\UserChangePasswordComponent;
 use App\Http\Livewire\User\UserOrderDetailsComponent;
 use App\Http\Livewire\User\UserOrdersComponent;
 use App\Http\Livewire\User\UserReviewComponent;
@@ -72,6 +76,9 @@ Route::get('/wishlist', WishlistComponent::class)->name('product.wishlist');
 // For Thankyou
 Route::get('/thank-you', ThankyouComponent::class)->name('thankyou');
 
+// Create Contact Page
+Route::get('/contact-us', ContactComponent::class)->name('contact');
+
 
 // For User or Customer
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
@@ -81,6 +88,9 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/user/orders', UserOrdersComponent::class)->name('user.orders');
     Route::get('/user/orders/{order_id}', UserOrderDetailsComponent::class)->name('user.orderdetails');
     Route::get('/user/review/{order_item_id}', UserReviewComponent::class)->name('user.review');
+
+    // User Change Password
+    Route::get('/user/change-password', UserChangePasswordComponent::class)->name('user.changepassword');
 });
 
 
@@ -123,5 +133,11 @@ Route::middleware(['auth:sanctum', 'verified', 'authadmin'])->group(function () 
 
     //Admin Show Order Details
     Route::get('/admin/orders/{order_id}', AdminOrderDetailsComponent::class)->name('admin.orderdetails');
+
+    // Create Contact Page
+    Route::get('admin/contact-us', AdminContactComponent::class)->name('admin.contact');
+
+    // Admin Create Settings Page
+    Route::get('admin/settings', AdminSettingComponent::class)->name('admin.settings');
 
 });

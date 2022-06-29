@@ -29,7 +29,7 @@ class CartComponent extends Component
 
         // autorefresh wishlist count
         $this->emitTo('cart-count-component', 'refreshComponent');  // refreshComponent argument is from CartCountCompoent.php file
-        
+
     }
     public function decreaseQuantity($rowId)
     {
@@ -52,15 +52,15 @@ class CartComponent extends Component
 
         session()->flash('success_message', 'Item has been removed!');
         // return redirect()->route('product.cart');
-        
+
     }
     public function destroyAll()
     {
         Cart::instance('cart')->destroy();
-        
+
         // autorefresh wishlist count
         $this->emitTo('cart-count-component', 'refreshComponent');  // refreshComponent argument is from CartCountCompoent.php file
-        
+
         return redirect()->route('product.cart');
     }
 
@@ -144,7 +144,7 @@ class CartComponent extends Component
             session()->forget('checkout');
             return;
         }
-        
+
         if(session()->has('coupon'))
         {
             session()->put('checkout', [
@@ -177,6 +177,13 @@ class CartComponent extends Component
             }
         }
         $this->setAmountForCheckout();
+
+        // Shopping Cart Using Database
+        if(Auth::check())
+        {
+            Cart::instance('cart')->store(Auth::user()->email);
+        }
+
         return view('livewire.cart-component')->layout('layouts.base');
     }
 

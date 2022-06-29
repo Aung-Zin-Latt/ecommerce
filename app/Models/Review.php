@@ -10,4 +10,10 @@ class Review extends Model
     use HasFactory;
 
     protected $table = 'reviews';
+
+    // Show Review & Rating on Product Details Page
+    public function orderItem()
+    {
+        return $this->belongsTo(OrderItem::class);
+    }
 }

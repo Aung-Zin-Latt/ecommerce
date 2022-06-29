@@ -29,6 +29,10 @@ class AdminEditProductComponent extends Component
     public $newimage;
     public $product_id;
 
+    // For editing new image gallery
+    public $images;
+    public $newimages;
+
     public function mount($product_slug)
     {
         $product = Product::where('slug', $product_slug)->first();
@@ -43,6 +47,9 @@ class AdminEditProductComponent extends Component
         $this->featured = $product->featured;
         $this->quantity = $product->quantity;
         $this->image = $product->image;
+
+        $this->newimages = explode(",", $product->images);  // $this->newimages should not write like $this->image if u write, htmlspecialchars() error will occur
+
         $this->category_id = $product->category_id;
         $this->product_id = $product->id;
     }
@@ -56,7 +63,7 @@ class AdminEditProductComponent extends Component
     {
         $this->validateOnly($fields, [
             'name' => 'required',
-            'slug' => 'required',  // products is a table name
+            'slug' => 'required',
             'short_description' => 'required',
             'description' => 'required',
             'regular_price' => 'required|numeric',
@@ -68,13 +75,19 @@ class AdminEditProductComponent extends Component
             // 'newimage' => 'required|mimes:jpeg,png',
             'category_id' => 'required',
         ]);
+        if($this->newimage)
+        {
+            $this->validateOnly($fields, [
+                'newimage' => 'required|mimes:jpeg,png,jpg'
+            ]);
+        }
     }
     public function updateProduct()
     {
         // Form Validation for edit Product
         $this->validate([
             'name' => 'required',
-            'slug' => 'required',  // products is a table name
+            'slug' => 'required',
             'short_description' => 'required',
             'description' => 'required',
             'regular_price' => 'required|numeric',
@@ -86,6 +99,12 @@ class AdminEditProductComponent extends Component
             // 'newimage' => 'required|mimes:jpeg,png',
             'category_id' => 'required',
         ]);
+        if($this->newimage)
+        {
+            $this->validate([
+                'newimage' => 'required|mimes:jpeg,png,jpg'
+            ]);
+        }
 
         $product = Product::find($this->product_id);
         $product->name = $this->name;
@@ -97,12 +116,42 @@ class AdminEditProductComponent extends Component
         $product->SKU = $this->SKU;
         $product->stock_status = $this->stock_status;
         $product->quantity = $this->quantity;
-        if ($this->newimage) {
+        if ($this->newimage)
+        {
+            // For editing new image gallery
+            unlink('assets/images/products'.'/'.$product->image);
+
             $imageName = Carbon::now()->timestamp. '.' . $this->newimage->extension();     // go config/filesystems.php => 'local'
             $this->newimage->storeAs('products', $imageName);
             $product->image = $imageName;
             // dd($product->image);
         }
+
+        if($this->newimages)
+        {
+            if($product->images)
+            {
+                $images = explode(",", $product->images);
+                foreach($images as $image)
+                {
+                    if($image)
+                    {
+                        unlink('assets/images/products'.'/'.$image);
+                    }
+                }
+            }
+
+            // add new product img gallery after delete above part
+            $imagesname = '';
+            foreach ($this->newimages as $key => $image) {
+                $imgName = Carbon::now()->timestamp . $key . '.' . $image->extension();
+                $image->storeAs('products', $imgName);
+                $imagesname = $imagesname . ',' . $imgName;
+            }
+            $product->images = $imagesname;
+        }
+
+
         $product->category_id = $this->category_id;
         $product->save();
         session()->flash('message', 'Product has been updated successfully!');
