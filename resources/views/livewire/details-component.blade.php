@@ -156,12 +156,15 @@
                                                 width: 100%;
                                             }
                                         </style>
+
+                                        {{-- Review Section --}}
                                         <div id="comments">
                                             <h2 class="woocommerce-Reviews-title">{{ $product->orderItems->where('rstatus', 1)->count() }} review for <span>{{ $product->name }}</span></h2>
                                             <ol class="commentlist">
                                                 @foreach ($product->orderItems->where('rstatus', 1) as $orderItem)
                                                     <li class="comment byuser comment-author-admin bypostauthor even thread-even depth-1" id="li-comment-20">
                                                         <div id="comment-20" class="comment_container">
+                                                            {{-- Show User Profile Image On Product Review --}}
                                                             <img alt="" src="{{ asset('assets/images/author-avata.jpg') }}" height="80" width="80">
                                                             <div class="comment-text">
                                                                 <div class="star-rating">
@@ -181,6 +184,7 @@
                                                 @endforeach
                                             </ol>
                                         </div><!-- #comments -->
+                                        {{-- End Review Section --}}
 
                                     </div>
                                 </div>

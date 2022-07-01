@@ -257,7 +257,7 @@ class CheckoutComponent extends Component
         }
 
         // make order confirmation email
-        // $this->sendOrderConfirmationMail($order);
+        $this->sendOrderConfirmationMail($order);
     }
 
     // Checkout With Stripe
@@ -279,10 +279,10 @@ class CheckoutComponent extends Component
     }
 
     // make order confirmation email
-    // public function sendOrderConfirmationMail($order)
-    // {
-    //     Mail::to($order->email)->send(new OrderMail($order));
-    // }
+    public function sendOrderConfirmationMail($order)
+    {
+        Mail::to($order->email)->send(new OrderMail($order));
+    }
 
     public function verifyForCheckout()
     {

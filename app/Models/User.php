@@ -58,4 +58,10 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    // Create User Profile
+    public function profile()
+    {
+        return $this->hasOne(Profile::class, 'user_id');
+    }
 }

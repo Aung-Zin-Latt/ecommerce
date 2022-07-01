@@ -34,10 +34,13 @@ class HomeComponent extends Component
         // Admin Making On Sale Timer Working
         $sale = Sale::find(1);
 
-        // Shopping Cart Using Database
+
         if(Auth::check())
         {
+            // Shopping Cart Using Database
             Cart::instance('cart')->restore(Auth::user()->email);
+            // Wishlist Using Database
+            Cart::instance('wishlist')->restore(Auth::user()->email);
         }
 
         return view('livewire.home-component', ['sliders'=>$sliders, 'lproducts'=>$lproducts, 'categories'=>$categories, 'no_of_products'=>$no_of_products, 'sproducts'=>$sproducts, 'sale'=>$sale])->layout('layouts.base');

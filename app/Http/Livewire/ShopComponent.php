@@ -80,10 +80,12 @@ class ShopComponent extends Component
         // Products By Categories
         $categories = Category::all();
 
-        // Shopping Cart Using Database
         if(Auth::check())
         {
+            // Shopping Cart Using Database
             Cart::instance('cart')->store(Auth::user()->email);
+            // Wishlist Using Database
+            Cart::instance('wishlist')->store(Auth::user()->email);
         }
 
         return view('livewire.shop-component', ['products'=>$products, 'categories'=>$categories])->layout('layouts.base');

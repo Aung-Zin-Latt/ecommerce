@@ -31,8 +31,10 @@ use App\Http\Livewire\HomeComponent;
 use App\Http\Livewire\SearchComponent;
 use App\Http\Livewire\ThankyouComponent;
 use App\Http\Livewire\User\UserChangePasswordComponent;
+use App\Http\Livewire\User\UserEditProfileComponent;
 use App\Http\Livewire\User\UserOrderDetailsComponent;
 use App\Http\Livewire\User\UserOrdersComponent;
+use App\Http\Livewire\User\UserProfileComponent;
 use App\Http\Livewire\User\UserReviewComponent;
 use App\Http\Livewire\WishlistComponent;
 use Illuminate\Support\Facades\Route;
@@ -65,7 +67,7 @@ Route::get('/checkout', CheckoutComponent::class)->name('checkout');
 Route::get('/product/{slug}', DetailsComponent::class)->name('product.details');
 
 // Products By Categories
-Route::get('/product-category/{category_slug}', CategoryComponent::class)->name('product.category');
+Route::get('/product-category/{category_slug}/{scategory_slug?}', CategoryComponent::class)->name('product.category');
 
 // Search Products
 Route::get('/search', SearchComponent::class)->name('product.search');
@@ -91,6 +93,12 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     // User Change Password
     Route::get('/user/change-password', UserChangePasswordComponent::class)->name('user.changepassword');
+
+    // Create User Profile
+    Route::get('/user/profile', UserProfileComponent::class)->name('user.profile');
+
+    // Update User Profile
+    Route::get('user/profile/edit', UserEditProfileComponent::class)->name('user.editprofile');
 });
 
 
@@ -103,7 +111,7 @@ Route::middleware(['auth:sanctum', 'verified', 'authadmin'])->group(function () 
     // Admin Add New Category
     Route::get('/admin/category/add', AdminAddCategoryComponent::class)->name('admin.addcategory');
     // Admin Edit Category
-    Route::get('/admin/category/edit/{category_slug}', AdminEditCategoryComponent::class)->name('admin.editcategory');
+    Route::get('/admin/category/edit/{category_slug}/{scategory_slug?}', AdminEditCategoryComponent::class)->name('admin.editcategory'); // + edit subcategories
     // Admin Product Page
     Route::get('/admin/products', AdminProductComponent::class)->name('admin.products');
 

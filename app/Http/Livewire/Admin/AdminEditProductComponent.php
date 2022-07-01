@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Admin;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Subcategory;
 use Carbon\Carbon;
 use Livewire\Component;
 use Illuminate\Support\Str;
@@ -33,6 +34,9 @@ class AdminEditProductComponent extends Component
     public $images;
     public $newimages;
 
+    // Add Subcategory On Edit and Add Product Page
+    public $scategory_id;
+
     public function mount($product_slug)
     {
         $product = Product::where('slug', $product_slug)->first();
@@ -48,9 +52,13 @@ class AdminEditProductComponent extends Component
         $this->quantity = $product->quantity;
         $this->image = $product->image;
 
-        $this->newimages = explode(",", $product->images);  // $this->newimages should not write like $this->image if u write, htmlspecialchars() error will occur
+        $this->images = explode(",", $product->images);  // $this->newimages should not write like $this->image if u write, htmlspecialchars() error will occur
 
         $this->category_id = $product->category_id;
+
+        // Add Subcategory On Edit and Add Product Page
+        $this->scategory_id = $product->subcategory_id;
+
         $this->product_id = $product->id;
     }
     public function autoGenerateSlug()
@@ -78,7 +86,7 @@ class AdminEditProductComponent extends Component
         if($this->newimage)
         {
             $this->validateOnly($fields, [
-                'newimage' => 'required|mimes:jpeg,png,jpg'
+                'newimage' => 'required|mimes:jpeg,png'
             ]);
         }
     }
@@ -102,7 +110,7 @@ class AdminEditProductComponent extends Component
         if($this->newimage)
         {
             $this->validate([
-                'newimage' => 'required|mimes:jpeg,png,jpg'
+                'newimage' => 'required|mimes:jpeg,png'
             ]);
         }
 
@@ -153,14 +161,30 @@ class AdminEditProductComponent extends Component
 
 
         $product->category_id = $this->category_id;
+
+        // Add Subcategory On Edit and Add Product Page
+        if ($this->scategory_id)
+        {
+            $product->subcategory_id = $this->scategory_id;
+        }
+
         $product->save();
         session()->flash('message', 'Product has been updated successfully!');
         return redirect()->route('admin.products');
     }
 
+    // Add Subcategory On Edit and Add Product Page
+    public function changeSubcategory()
+    {
+        $this->scategory_id = 0;
+    }
+
     public function render()
     {
         $categories = Category::all();
-        return view('livewire.admin.admin-edit-product-component', ['categories'=>$categories])->layout('layouts.base');
+
+        // Add Subcategory On Edit and Add Product Page
+        $scategories = Subcategory::where('category_id', $this->category_id)->get();
+        return view('livewire.admin.admin-edit-product-component', ['categories'=>$categories, 'scategories'=>$scategories])->layout('layouts.base');
     }
 }

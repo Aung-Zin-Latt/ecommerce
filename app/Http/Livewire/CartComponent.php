@@ -178,9 +178,10 @@ class CartComponent extends Component
         }
         $this->setAmountForCheckout();
 
-        // Shopping Cart Using Database
+
         if(Auth::check())
         {
+            // Shopping Cart Using Database
             Cart::instance('cart')->store(Auth::user()->email);
         }
 

@@ -20,14 +20,14 @@
                             <div class="alert alert-success" role="alert">{{ Session::get('message') }}</div>
                         @endif
                         <form class="form-horizontal" wire:submit.prevent='updateCategory()'>
-                            <div class="form-group">
-                                <label for="name" class="col-md-4 control-label">CategoryName</label>
+                            <div class="form-group" wire:ignore>
+                                <label for="name" class="col-md-4 control-label">Category Name</label>
                                 <div class="col-md-4">
                                     <input type="text" placeholder="Category Name" class="form-control input-md" wire:model='name' wire:keyup='autoGenerateSlug()'>
                                     @error('name') <p class="text-danger">{{ $message }}</p> @enderror
                                 </div>
                             </div>
-                            
+
                             <div class="form-group">
                                 <label for="slug" class="col-md-4 control-label">Category Slug</label>
                                 <div class="col-md-4">
@@ -35,7 +35,24 @@
                                     @error('slug') <p class="text-danger">{{ $message }}</p> @enderror
                                 </div>
                             </div>
-                            
+
+
+                            {{-- Admin Edit Subcategories --}}
+                            <div class="form-group">
+                                <label for="slug" class="col-md-4 control-label">Parent Category</label>
+                                <div class="col-md-4">
+                                    <select class="form-control" wire:model='category_id'>
+                                        <option value="">None</option>
+                                        @foreach ($categories as $category)
+                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('slug') <p class="text-danger">{{ $message }}</p> @enderror
+                                </div>
+                            </div>
+                            {{-- Admin Edit Subcategories --}}
+
+
                             <div class="form-group">
                                 <label for="name" class="col-md-4 control-label"></label>
                                 <div class="col-md-4">

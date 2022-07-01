@@ -86,17 +86,31 @@
                 <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12 sitebar">
                     <div class="widget mercado-widget categories-widget">
                         <h2 class="widget-title">All Categories</h2>
+
+                        {{-- Start Show Products by Subcategory --}}
                         <div class="widget-content">
                             <ul class="list-category">
-
                                 @foreach ($categories as $category)
-                                    <li class="category-item">
-                                        <a href="{{ route('product.category',['category_slug'=>$category->slug]) }}" class="cate-link">{{ $category->name }}</a>
+                                    {{-- Show Subcategories on Shop Page --}}
+                                    <li class="category-item {{ count($category->subCategories) > 0 ? 'has-child-cate' : '' }}">
+                                        <a href="{{ route('product.category', ['category_slug'=>$category->slug]) }}" class="cate-link">{{ $category->name }}</a>
+                                        @if (count($category->subCategories) > 0)
+                                            <span class="toggle-control">+</span>
+                                            <ul class="sub-cate">
+                                                @foreach ($category->subCategories as $scategory)
+                                                    <li class="category-item">
+                                                        {{--  Show Products by Subcategory wtiting in href --}}
+                                                        <a href="{{ route('product.category', ['category_slug'=>$category->slug, 'scategory_slug'=>$scategory->slug]) }}" class="cate-link"><i class="fa fa-caret-right">{{ $scategory->name }}</i></a>
+                                                    </li>
+                                                @endforeach
+                                            </ul>
+                                        @endif
                                     </li>
                                 @endforeach
-                                
                             </ul>
                         </div>
+                        {{-- End Show Products by Subcategory --}}
+
                     </div><!-- Categories widget-->
 
                     <div class="widget mercado-widget filter-widget brand-widget">

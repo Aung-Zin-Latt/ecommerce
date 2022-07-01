@@ -23,7 +23,8 @@
                 </ul>
             </div>
             <div class=" main-content-area">
-                <form action="" wire:submit.prevent='placeOrder()'>
+                {{-- Show Processing Message When Placing an Order with Javascript--}}
+                <form action="" wire:submit.prevent='placeOrder()' onsubmit="$('#processing').show();">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="wrap-address-billing">
@@ -149,7 +150,7 @@
                             </div>
                         @endif
                     </div>
-                    
+
                     <div class="summary summary-checkout">
                         <div class="summary-item payment-method">
                             <h4 class="title-box">Payment Method</h4>
@@ -164,19 +165,19 @@
                                         <input type="text" name="card-no" value="" placeholder="Card Number" wire:model='card_no'>
                                         @error('card_no') <span class="text-danger">{{ $message }}</span> @enderror
                                     </p>
-                                    
+
                                     <p class="row-in-form">
                                         <label for="exp-month">Expiry Month:</label>
                                         <input type="text" name="exp-month" value="" placeholder="MM" wire:model='exp_month'>
                                         @error('exp_month') <span class="text-danger">{{ $message }}</span> @enderror
                                     </p>
-                                    
+
                                     <p class="row-in-form">
                                         <label for="exp-year">Expiry Year:</label>
                                         <input type="text" name="exp-year" value="" placeholder="YYYY" wire:model='exp_year'>
                                         @error('exp_year') <span class="text-danger">{{ $message }}</span> @enderror
                                     </p>
-                                    
+
                                     <p class="row-in-form">
                                         <label for="cvc">CVC:</label>
                                         <input type="password" name="cvc" value="" placeholder="CVC" wire:model='cvc'>
@@ -185,7 +186,7 @@
                                 </div>
                             @endif
                             {{--End Checkout With Stripe --}}
-                            
+
                             <div class="choose-payment-methods">
                                 <label class="payment-method">
                                     <input name="payment-method" id="payment-method-bank" value="cod" type="radio" wire:model='paymentmode'>
@@ -208,8 +209,22 @@
                             @if(Session::has('checkout'))
                                 <p class="summary-info grand-total"><span>Grand Total</span> <span class="grand-total-price">${{ Session::get('checkout')['total'] }}</span></p>
                             @endif
+
+
+                            {{-- Show Processing Message When Placing an Order --}}
+                            @if ($errors->isEmpty())
+                                <div wire:ignore id="processing" style="font-size: 22px; margin-bottom: 20px; padding-left: 37px; color: green; display: none;">
+                                    <i class="fa fa-spinner fa-pulse fa-fw"></i>
+                                    <span>Processing...</span>
+                                </div>
+                            @endif
+                            {{-- Show Processing Message When Placing an Order --}}
+
+
                             <button type="submit" class="btn btn-medium">Place order now</button>
                         </div>
+
+
                         <div class="summary-item shipping-method">
                             <h4 class="title-box f-title">Shipping method</h4>
                             <p class="summary-info"><span class="title">Flat Rate</span></p>

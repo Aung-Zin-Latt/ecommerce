@@ -75,11 +75,11 @@
                     _this.parent().slideUp();
                 });
 			}
-			if($("select:not(.except-chosen)").length > 0){
-				$("select:not(.except-chosen)").each(function(){
-					$(this).chosen();
-				});
-			}
+			// if($("select:not(.except-chosen)").length > 0){
+			// 	$("select:not(.except-chosen)").each(function(){
+			// 		$(this).chosen();
+			// 	});
+			// }
         },
 
 		mercado_toggle_slide_menu: function() {
@@ -359,7 +359,7 @@
 	                    _this.addClass('active');
 	                    _this.parents().siblings('.tab-contents').find('.active').removeClass('active');
 	                    _this.parents().siblings('.tab-contents').find(_this.attr('href')).addClass('active');
-                    }  
+                    }
                 });
             }
 

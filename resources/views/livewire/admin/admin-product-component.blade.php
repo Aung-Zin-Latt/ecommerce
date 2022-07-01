@@ -13,11 +13,15 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 All Products
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <a href="{{ route('admin.addproduct') }}" class="btn btn-success pull-right">Add New</a>
+                            </div>
+                            {{-- Add Search on Admin Products Page --}}
+                            <div class="col-md-4">
+                                <input type="text" placeholder="Search..." class="form-control" wire:model='searchTerm'>
                             </div>
                         </div>
                     </div>
@@ -26,7 +30,7 @@
                         @if (Session::has('message'))
                             <div class="alert alert-success" role="alert">{{ Session::get('message') }}</div>
                         @endif
-                        <table class="table table-striped">
+                        <table wire:loading.class.delay='opacity-50' class="table table-striped">
                             <thead>
                                 <tr>
                                     <th>Id</th>
@@ -42,7 +46,7 @@
                             </thead>
 
                             <tbody>
-                                @foreach ($products as $product)
+                                @forelse ($products as $product)
                                     <tr>
                                         <td>{{ $product->id }}</td>
                                         <td><img src="{{ asset('assets/images/products') }}/{{ $product->image }}" width="60" alt="{{ $product->name }}"></td>
@@ -57,7 +61,15 @@
                                             <a href="#" onclick="confirm('Are you sure, you want to delete this product?') || event.stopImmediatePropagation()" wire:click.prevent="deleteProduct({{$product->id}})" style="margin-left: 10px;"><i class="fa fa-times fa-2x text-danger"></i></a>
                                         </td>
                                     </tr>
-                                @endforeach
+                                @empty
+                                    <tr>
+                                        <td colspan="9"  class="text-center py-8" style="color: gray">
+                                            <div class="flex justify-center items-center">
+                                                <span>No Matched Product found!</span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforelse
                             </tbody>
 
                         </table>
