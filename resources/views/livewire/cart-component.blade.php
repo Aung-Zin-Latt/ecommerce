@@ -31,10 +31,20 @@
                                         <div class="product-name">
                                             <a class="link-to-product" href="{{ route('product.details', ['slug' => $item->model->slug]) }}">{{ $item->model->name }}</a>
                                         </div>
+
+                                        {{-- Show Product Attribute on Cart Page --}}
+                                        {{-- {{ dd($item->options) }} --}}
+                                        @foreach ($item->options as $key=>$value)
+                                            <div style="vertical-align: middle; width: 180px;">
+                                                <p><b>{{ $key }}: {{ $value }}</b></p>
+                                            </div>
+                                        @endforeach
+                                        {{-- Show Product Attribute on Cart Page --}}
+
                                         <div class="price-field produtc-price"><p class="price">${{ $item->model->regular_price }}</p></div>
                                         <div class="quantity">
                                             <div class="quantity-input">
-                                                <input type="text" name="product-quatity" value="{{ $item->qty }}" data-max="120" pattern="[0-9]*" >									
+                                                <input type="text" name="product-quatity" value="{{ $item->qty }}" data-max="120" pattern="[0-9]*" >
                                                 <a class="btn btn-increase" wire:click.prevent="increaseQuantity('{{ $item->rowId }}')" href="{{route('product.cart')}}"></a>
                                                 <a class="btn btn-reduce" wire:click.prevent="decreaseQuantity('{{ $item->rowId }}')" href="{{route('product.cart')}}"></a>
                                             </div>

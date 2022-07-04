@@ -29,4 +29,10 @@ class Product extends Model
     {
         return $this->belongsTo(Subcategory::class, 'subcategory_id');
     }
+
+    // Add Attribute Option on Edit Product Page
+    public function attributeValues()
+    {
+        return $this->hasMany(AttributeValue::class, 'product_id');
+    }
 }

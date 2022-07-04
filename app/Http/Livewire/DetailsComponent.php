@@ -13,8 +13,10 @@ class DetailsComponent extends Component
     public $slug;
     // for increase & decrease price
     public $qty;
+    // Show Product Attribute on Cart Page
+    public $selectattr = [];
 
-    public function mount($slug) 
+    public function mount($slug)
     {
         $this->slug = $slug;
         // for increase & decrease price
@@ -24,11 +26,12 @@ class DetailsComponent extends Component
     // Shopping Cart
     public function store($product_id, $product_name, $product_price)
     {
-        Cart::instance('cart')->add($product_id, $product_name, $this->qty, $product_price)->associate('App\Models\Product');
+        // Show Product Attribute on Cart Page $this->selectattr
+        Cart::instance('cart')->add($product_id, $product_name, $this->qty, $product_price, $this->selectattr)->associate('App\Models\Product');
         session()->flash('success_message', 'Item added in Cart!');
         return redirect()->route('product.cart');
     }
- 
+
     public function increaseQuantity()
     {
         $this->qty++;

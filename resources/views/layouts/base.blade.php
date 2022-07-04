@@ -92,6 +92,10 @@
 													<li class="menu-item" >
 														<a title="Categories" href="{{ route('admin.categories') }}">Categories</a>
 													</li>
+
+													<li class="menu-item" >
+														<a title="Product Attributes" href="{{ route('admin.attributes') }}">Product Attributes</a>
+													</li>
 													<li class="menu-item">
 														<a title="Products" href="{{ route('admin.products') }}">All Products</a>
 													</li>
@@ -152,10 +156,10 @@
 												</ul>
 											</li>
 										@endif
-									@else
-										<li class="menu-item" ><a title="Register or Login" href="{{ route('login') }}">Login</a></li>
-										<li class="menu-item" ><a title="Register or Login" href="{{ route('register') }}">Register</a></li>
-									@endif
+								@else
+									<li class="menu-item" ><a title="Register or Login" href="{{ route('login') }}">Login</a></li>
+									<li class="menu-item" ><a title="Register or Login" href="{{ route('register') }}">Register</a></li>
+								@endif
 								@endif
 							</ul>
 						</div>
@@ -210,7 +214,7 @@
 									<a href="/" class="link-term mercado-item-title"><i class="fa fa-home" aria-hidden="true"></i></a>
 								</li>
 								<li class="menu-item">
-									<a href="about-us.html" class="link-term mercado-item-title">About Us</a>
+									<a href="/about-us" class="link-term mercado-item-title">About Us</a>
 								</li>
 								<li class="menu-item">
 									<a href="/shop" class="link-term mercado-item-title">Shop</a>

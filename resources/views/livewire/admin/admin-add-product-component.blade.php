@@ -160,6 +160,36 @@
                                 </div>
                             </div>
 
+                            {{-- Add Attribute Option on Add New Product Page --}}
+                            <div class="form-group">
+                                <label for="pattribute" class="col-md-4 control-label">Product Attributes</label>
+                                <div class="col-md-3">
+                                    <select class="form-control" wire:model='attr'>
+                                        <option value="0">Select Attribute</option>
+                                        @foreach ($pattributes as $pattribute)
+                                            <option value="{{ $pattribute->id }}">{{ $pattribute->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                {{--Start Add Attribute Option on Add New Product Page --}}
+                                <div class="col-md-1">
+                                    <button wire:click.prevent='add()' type="button" class="btn btn-info">Add</button>
+                                </div>
+                            </div>
+                            @foreach ($inputs as $key => $value)
+                                <div class="form-group">
+                                    <label for="add_attribute" class="col-md-4 control-label">{{ $pattributes->where('id', $attribute_arr[$key])->first()->name }}</label>
+                                    <div class="col-md-3">
+                                        <input type="text" placeholder="{{ $pattributes->where('id', $attribute_arr[$key])->first()->name }}" class="form-control input-md" wire:model='attribute_values.{{ $value }}'>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <button wire:click.prevent='remove({{ $key }})' type="button" class="btn btn-danger btn-sm">Remove</button>
+                                    </div>
+                                </div>
+                            @endforeach
+                            {{--End Add Attribute Option on Add New Product Page --}}
+
 
                             <div class="form-group">
                                 <label for="p_image" class="col-md-4 control-label"></label>

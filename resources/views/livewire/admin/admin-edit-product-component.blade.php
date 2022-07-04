@@ -37,9 +37,9 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="short_desc" class="col-md-4 control-label">Short Description</label>
+                                <label for="short_description" class="col-md-4 control-label">Short Description</label>
                                 <div class="col-md-4">
-                                    <textarea name="sh_description" class="form-control" placeholder="Short Description" wire:model='short_description'></textarea>
+                                    <textarea name="short_description" id="short_description" class="form-control" placeholder="Short Description" wire:model='short_description'></textarea>
                                     @error('short_description') <p class="text-danger">{{ $message }}</p> @enderror
                                 </div>
                             </div>
@@ -47,7 +47,7 @@
                             <div class="form-group">
                                 <label for="description" class="col-md-4 control-label">Description</label>
                                 <div class="col-md-4">
-                                    <textarea name="description" class="form-control" placeholder="Description" wire:model='description'></textarea>
+                                    <textarea name="description" id="description" class="form-control" placeholder="Description" wire:model='description'></textarea>
                                     @error('description') <p class="text-danger">{{ $message }}</p> @enderror
                                 </div>
                             </div>
@@ -169,6 +169,36 @@
                                 </div>
                             </div>
 
+                            {{-- Add Attribute Option on Edit Product Page --}}
+                            <div class="form-group">
+                                <label for="pattribute" class="col-md-4 control-label">Product Attributes</label>
+                                <div class="col-md-3">
+                                    <select class="form-control" wire:model='attr'>
+                                        <option value="0">Select Attribute</option>
+                                        @foreach ($pattributes as $pattribute)
+                                            <option value="{{ $pattribute->id }}">{{ $pattribute->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <div class="col-md-1">
+                                    <button wire:click.prevent='add()' type="button" class="btn btn-info">Add</button>
+                                </div>
+                            </div>
+                            @foreach ($inputs as $key => $value)
+                                <div class="form-group">
+                                    <label for="add_attribute" class="col-md-4 control-label">{{ $pattributes->where('id', $attribute_arr[$key])->first()->name }}</label>
+                                    <div class="col-md-3">
+                                        <input type="text" placeholder="{{ $pattributes->where('id', $attribute_arr[$key])->first()->name }}" class="form-control input-md" wire:model='attribute_values.{{ $value }}'>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <button wire:click.prevent='remove({{ $key }})' type="button" class="btn btn-danger btn-sm pull-right">Remove</button>
+                                    </div>
+                                </div>
+                            @endforeach
+                            {{-- Add Attribute Option on Edit Product Page --}}
+
+
 
                             <div class="form-group">
                                 <label for="p_image" class="col-md-4 control-label"></label>
@@ -184,3 +214,33 @@
         </div>
     </div>
 </div>
+
+@push('scripts')
+    <script>
+        $(function(){
+            // for short_description
+            tinymce.init({
+                selector: '#short_description',
+                setup: function(editor){
+                    editor.on('Change', function(e){
+                        tinyMCE.triggerSave();
+                        var sd_data = $('#short_description').val();
+                        @this.set('short_description', sd_data);
+                    });
+                }
+            });
+
+            // for description
+            tinymce.init({
+                selector: '#description',
+                setup: function(editor){
+                    editor.on('Change', function(e){
+                        tinyMCE.triggerSave();
+                        var sd_data = $('#description').val();
+                        @this.set('description', sd_data);
+                    });
+                }
+            });
+        });
+    </script>
+@endpush

@@ -1,15 +1,19 @@
 <?php
 
+use App\Http\Livewire\AboutUsComponent;
+use App\Http\Livewire\Admin\AdminAddAttributeComponent;
 use App\Http\Livewire\Admin\AdminAddCategoryComponent;
 use App\Http\Livewire\Admin\AdminAddCouponComponent;
 use App\Http\Livewire\Admin\AdminAddHomeSliderComponent;
 use App\Http\Livewire\Admin\AdminAddProductComponent;
+use App\Http\Livewire\Admin\AdminAttributeComponent;
 use App\Http\Livewire\User\UserDashboardComponent;
 use App\Http\Livewire\Admin\AdminDashboardComponent;
 
 use App\Http\Livewire\Admin\AdminCategoryComponent;
 use App\Http\Livewire\Admin\AdminContactComponent;
 use App\Http\Livewire\Admin\AdminCouponsComponent;
+use App\Http\Livewire\Admin\AdminEditAttributeComponent;
 use App\Http\Livewire\Admin\AdminEditCategoryComponent;
 use App\Http\Livewire\Admin\AdminEditCouponComponent;
 use App\Http\Livewire\Admin\AdminEditHomeSliderComponent;
@@ -81,6 +85,9 @@ Route::get('/thank-you', ThankyouComponent::class)->name('thankyou');
 // Create Contact Page
 Route::get('/contact-us', ContactComponent::class)->name('contact');
 
+// About Us
+Route::get('/about-us', AboutUsComponent::class)->name('aboutus');
+
 
 // For User or Customer
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
@@ -147,5 +154,10 @@ Route::middleware(['auth:sanctum', 'verified', 'authadmin'])->group(function () 
 
     // Admin Create Settings Page
     Route::get('admin/settings', AdminSettingComponent::class)->name('admin.settings');
+
+    // Create Product Attributes
+    Route::get('admin/attributes', AdminAttributeComponent::class)->name('admin.attributes');
+    Route::get('admin/attritbute/add', AdminAddAttributeComponent::class)->name('admin.add_attribute');
+    Route::get('admin/attribute/edit/{attribute_id}', AdminEditAttributeComponent::class)->name('admin.edit_attribute');
 
 });

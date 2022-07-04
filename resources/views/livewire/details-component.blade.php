@@ -88,7 +88,29 @@
                             <div class="stock-info in-stock">
                                 <p class="availability">Availability: <b>{{ $product->stock_status }}</b></p>
                             </div>
-                            <div class="quantity">
+
+                            {{-- Show Product Attributes On Product Details Page --}}
+                            <div>
+                                @foreach ($product->attributeValues->unique('product_attribute_id') as $av)
+                                    <div class="row" style="margin-top: 20px;">
+                                        <div class="col-xs-2">
+                                            <p>{{ $av->productAttribute->name }}</p>
+                                        </div>
+                                        <div class="col-xs-10">
+                                            {{-- Show Product Attribute on Cart Page = wire:model="selectattr.{{ $av->productAttribute->name }}" --}}
+                                            <select class="form-control" style="width: 200px;" wire:model="selectattr.{{ $av->productAttribute->name }}">
+                                                @foreach ($av->productAttribute->attributeValues->where('product_id', $product->id)->unique('value') as $pav)
+                                                    <option value="{{ $pav->value }}">{{ $pav->value }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                            {{-- Show Product Attributes On Product Details Page --}}
+
+
+                            <div class="quantity" style="margin-top: 10px;">
                                 <span>Quantity:</span>
                                 <div class="quantity-input">
                                     <input type="text" name="product-quatity" value="1" data-max="120" pattern="[0-9]*" wire:model="qty">
@@ -165,7 +187,7 @@
                                                     <li class="comment byuser comment-author-admin bypostauthor even thread-even depth-1" id="li-comment-20">
                                                         <div id="comment-20" class="comment_container">
                                                             {{-- Show User Profile Image On Product Review --}}
-                                                            <img alt="" src="{{ asset('assets/images/author-avata.jpg') }}" height="80" width="80">
+                                                            <img alt="" src="{{ asset('assets/images/profile') }}/{{ $orderItem->order->user->profile->image }}" height="80" width="80">
                                                             <div class="comment-text">
                                                                 <div class="star-rating">
                                                                     <span class="width-{{ $orderItem->review->rating * 20 }}-percent">Rated <strong class="rating">{{ $orderItem->review->rating }}</strong> out of 5</span>

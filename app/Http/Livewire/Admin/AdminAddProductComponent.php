@@ -2,8 +2,10 @@
 
 namespace App\Http\Livewire\Admin;
 
+use App\Models\AttributeValue;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\ProductAttribute;
 use App\Models\Subcategory;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
@@ -30,6 +32,11 @@ class AdminAddProductComponent extends Component
     public $images;
     // Add Subcategory On Edit and Add Product Page
     public $scategory_id;
+    // Add Attribute Option on Add New Product Page
+    public $attr;
+    public $inputs = [];
+    public $attribute_arr = [];
+    public $attribute_values;
 
 
     public function mount()
@@ -37,6 +44,24 @@ class AdminAddProductComponent extends Component
         $this->stock_status = 'instock';
         $this->featured = 0;
     }
+
+    // For Adding Product attributes
+    public function add()
+    {
+        if (!in_array($this->attr, $this->attribute_arr))
+        {
+            array_push($this->inputs, $this->attr);
+            array_push($this->attribute_arr, $this->attr);
+
+        }
+    }
+
+    // For Adding Product attributes
+    public function remove($attr)
+    {
+        unset($this->inputs[$attr]);
+    }
+
     public function autoGenerateSlug()
     {
         $this->slug = Str::slug($this->name, '-');    // '-' means "separator"
@@ -117,6 +142,20 @@ class AdminAddProductComponent extends Component
         }
 
         $product->save();
+
+        // Add Attribute Option on Add New Product Page
+        foreach ($this->attribute_values as $key => $attribute_value)
+        {
+            $attrvalues = explode(',', $attribute_value);
+            foreach ($attrvalues as $attrvalue) {
+                $attr_value = new AttributeValue();
+                $attr_value->product_attribute_id = $key;
+                $attr_value->value = $attrvalue;
+                $attr_value->product_id = $product->id;
+                $attr_value->save();
+            }
+        }
+
         session()->flash('message', 'Product has been created successfully!');
         // return redirect()->route('admin.products');
     }
@@ -133,6 +172,10 @@ class AdminAddProductComponent extends Component
 
         // Add Subcategory On Edit and Add Product Page
         $scategories = Subcategory::where('category_id', $this->category_id)->get();
-        return view('livewire.admin.admin-add-product-component', ['categories'=>$categories, 'scategories'=>$scategories])->layout('layouts.base');
+
+        // Add Attribute Option on Add New Product Page
+        $pattributes = ProductAttribute::all();
+
+        return view('livewire.admin.admin-add-product-component', ['categories'=>$categories, 'scategories'=>$scategories, 'pattributes'=>$pattributes])->layout('layouts.base');
     }
 }
