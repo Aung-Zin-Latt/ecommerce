@@ -144,15 +144,18 @@ class AdminAddProductComponent extends Component
         $product->save();
 
         // Add Attribute Option on Add New Product Page
-        foreach ($this->attribute_values as $key => $attribute_value)
+        if ($this->attribute_values)
         {
-            $attrvalues = explode(',', $attribute_value);
-            foreach ($attrvalues as $attrvalue) {
-                $attr_value = new AttributeValue();
-                $attr_value->product_attribute_id = $key;
-                $attr_value->value = $attrvalue;
-                $attr_value->product_id = $product->id;
-                $attr_value->save();
+            foreach ($this->attribute_values as $key => $attribute_value)
+            {
+                $attrvalues = explode(',', $attribute_value);
+                foreach ($attrvalues as $attrvalue) {
+                    $attr_value = new AttributeValue();
+                    $attr_value->product_attribute_id = $key;
+                    $attr_value->value = $attrvalue;
+                    $attr_value->product_id = $product->id;
+                    $attr_value->save();
+                }
             }
         }
 

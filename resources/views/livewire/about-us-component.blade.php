@@ -113,7 +113,7 @@
 							data-nav="true"
 							data-dots="false"
 							data-margin="20"
-							data-responsive='{"0":{"items":"1"},"480":{"items":"2"},"768":{"items":"3"},"992":{"items":"3"},"1200":{"items":"4"}}' >
+							data-responsive='{"0":{"items":"1"},"480":{"items":"2"},"768":{"items":"3"},"992":{"items":"3"},"1200":{"items":"3"}}' >
 
 							<div class="team-member equal-elem">
 								<div class="media">
