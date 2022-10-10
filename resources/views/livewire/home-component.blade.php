@@ -39,12 +39,12 @@
 					<h3 class="title-box">On Sale</h3>
 					<div class="wrap-countdown mercado-countdown" data-expire="{{ Carbon\Carbon::parse($sale->sale_date)->format('Y/m/d h:m:s') }}"></div>
 					<div class="wrap-products slide-carousel owl-carousel style-nav-1 equal-container " data-items="5" data-loop="false" data-nav="true" data-dots="false" data-responsive='{"0":{"items":"1"},"480":{"items":"2"},"768":{"items":"3"},"992":{"items":"4"},"1200":{"items":"5"}}'>
-						
+
 						@foreach ($sproducts as $sproduct)
 							<div class="product product-style-2 equal-elem ">
 								<div class="product-thumnail">
 									<a href="{{ route('product.details', ['slug'=>$sproduct->slug]) }}" title="{{ $sproduct->name }}">
-										<figure><img src="{{ asset('assets/images/products') }}/{{$sproduct->image}}" width="800" height="800" alt="{{ $sproduct->name }}"></figure>
+										<figure class="figure-img"><img src="{{ asset('assets/images/products') }}/{{$sproduct->image}}" width="800" height="800" alt="{{ $sproduct->name }}"></figure>
 									</a>
 									<div class="group-flash">
 										<span class="flash-item sale-label">sale</span>
@@ -69,7 +69,7 @@
 					</a>
 				</div>
 				<div class="wrap-products">
-					<div class="wrap-product-tab tab-style-1">						
+					<div class="wrap-product-tab tab-style-1">
 						<div class="tab-contents">
 							<div class="tab-content-item active" id="digital_1a">
 								<div class="wrap-products slide-carousel owl-carousel style-nav-1 equal-container" data-items="5" data-loop="false" data-nav="true" data-dots="false" data-responsive='{"0":{"items":"1"},"480":{"items":"2"},"768":{"items":"3"},"992":{"items":"4"},"1200":{"items":"5"}}' >
@@ -78,7 +78,7 @@
 										<div class="product product-style-2 equal-elem ">
 											<div class="product-thumnail">
 												<a href="{{ route('product.details', ['slug'=>$lproduct->slug]) }}" title="{{ $lproduct->name }}">
-													<figure><img src="{{ asset('assets/images/products') }}/{{$lproduct->image}}" width="800" height="800" alt="{{ $lproduct->name }}"></figure>
+													<figure class="figure-img"><img src="{{ asset('assets/images/products') }}/{{$lproduct->image}}" width="800" height="800" alt="{{ $lproduct->name }}"></figure>
 												</a>
 											</div>
 
@@ -90,7 +90,7 @@
 									@endforeach
 
 								</div>
-							</div>							
+							</div>
 						</div>
 					</div>
 				</div>
@@ -115,7 +115,7 @@
 							@foreach ($categories as $key=>$category)
 								<div class="tab-content-item {{$key==0 ? 'active' : ''}}" id="category_{{$category->id}}">
 									<div class="wrap-products slide-carousel owl-carousel style-nav-1 equal-container" data-items="5" data-loop="false" data-nav="true" data-dots="false" data-responsive='{"0":{"items":"1"},"480":{"items":"2"},"768":{"items":"3"},"992":{"items":"4"},"1200":{"items":"5"}}' >
-										
+
 										@php
 											$c_products = DB::table('products')->where('category_id', $category->id)->get()->take($no_of_products); //$no_of_products is getting from HomeComponent.php/render()function
 										@endphp
@@ -124,23 +124,23 @@
 												<div class="product product-style-2 equal-elem ">
 													<div class="product-thumnail">
 														<a href="{{ route('product.details', ['slug'=>$c_product->slug]) }}" title="{{ $c_product->name }}">
-															<figure><img src="{{ asset('assets/images/products') }}/{{$c_product->image}}" width="800" height="800" alt="{{ $c_product->name }}"></figure>
+															<figure class="figure-img"><img src="{{ asset('assets/images/products') }}/{{$c_product->image}}" width="800" height="800" alt="{{ $c_product->name }}"></figure>
 														</a>
 													</div>
 													<div class="product-info">
 														<a href="{{ route('product.details', ['slug'=>$c_product->slug]) }}" class="product-name"><span>Lois Caron LCS-4027 Analog Watch - For Men</span></a>
 														<div class="wrap-price"><span class="product-price">$250.00</span></div>
 													</div>
-												</div>										
+												</div>
 											@endforeach
-										
+
 									</div>
 								</div>
 							@endforeach
 						</div>
 					</div>
 				</div>
-			</div>			
+			</div>
 
 		</div>
 

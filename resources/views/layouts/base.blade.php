@@ -23,6 +23,7 @@
 	{{-- noUiSlider cdn --}}
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.6.0/nouislider.min.css" integrity="sha512-qveKnGrvOChbSzAdtSs8p69eoLegyh+1hwOMbmpCViIwj7rn4oJjdmMvWOuyQlTOZgTlZA0N2PXA7iA8/2TUYA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
+
     @livewireStyles
 </head>
 <body class="home-page home-01 ">
@@ -260,6 +261,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.6.0/nouislider.min.js" integrity="sha512-1mDhG//LAjM3pLXCJyaA+4c+h5qmMoTc7IuJyuNNPaakrWT9rVTxICK4tIizf7YwJsXgDC2JP74PGCc7qxLAHw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	{{-- TinyMCE cdn --}}
 	<script src="https://cdn.tiny.cloud/1/6y4gq3qizqmpec9l3azbeowpsl71cjysjt4lh6xbj0kamecp/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+
 
     @livewireScripts
 

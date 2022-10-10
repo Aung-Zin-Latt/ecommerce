@@ -57,7 +57,7 @@
                     </div><!--end wrap shop control-->
 
                     <style>
-                        .product-wish{
+                        .product-wish {
                             position: absolute;
                             top: 10%;
                             left: 0;
@@ -79,13 +79,13 @@
                     </style>
 
                     <div class="row">
-                        <ul class="product-list grid-products equal-container">
+
+                        <ul class="product-list grid-products equal-container"> {{--  class="product-list grid-products equal-container" --}}
                             {{-- add to wishlist start --}}
                             @php
                                 $witems = Cart::instance('wishlist')->content()->pluck('id');
                             @endphp
                             {{-- add to wishlist end --}}
-
                             @foreach ($products as $product)
                                 <li class="col-lg-4 col-md-6 col-sm-6 col-xs-6 ">
                                     <div class="product product-style-3 equal-elem ">
@@ -96,9 +96,8 @@
                                         </div>
                                         <div class="product-info">
                                             <a href="{{ route('product.details', ['slug' => $product->slug]) }}" class="product-name"><span>{{$product->name}}</span></a>
-                                            <div class="wrap-price"><span class="product-price">{{$product->regular_price}}</span></div>
-                                            <a href="#" class="btn add-to-cart" wire:click.prevent="store({{$product->id}}, '{{$product->name}}', {{$product->regular_price}})">Add To Cart</a>
-                                            {{-- WishList --}}
+                                            <div class="wrap-price"><span class="product-price">{{$product->sale_price}}</span></div>
+                                            <a href="#" class="btn add-to-cart" wire:click.prevent="store({{$product->id}}, '{{$product->name}}', {{$product->sale_price}})">Add To Cart</a>
                                             <div class="product-wish">
                                                 @if ($witems->contains($product->id))
                                                     <a href="#" wire:click.prevent="removeFromWishlist({{ $product->id }})"><i class="fa fa-heart fill-heart"></i></a>
@@ -110,6 +109,7 @@
                                     </div>
                                 </li>
                             @endforeach
+
                         </ul>
                     </div>
                     <div class="wrap-pagination-info">

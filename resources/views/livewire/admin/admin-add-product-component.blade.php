@@ -67,6 +67,13 @@
                                     @error('sale_price') <p class="text-danger">{{ $message }}</p> @enderror
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label for="buying_price" class="col-md-4 control-label">Buying Price</label>
+                                <div class="col-md-4">
+                                    <input type="text" placeholder="Buying Price" class="form-control input-md" wire:model='buying_price'>
+                                    @error('buying_price') <p class="text-danger">{{ $message }}</p> @enderror
+                                </div>
+                            </div>
 
                             <div class="form-group">
                                 <label for="sku" class="col-md-4 control-label">SKU</label>

@@ -26,6 +26,7 @@ class DetailsComponent extends Component
     // Shopping Cart
     public function store($product_id, $product_name, $product_price)
     {
+        // dd($product_price);
         // Show Product Attribute on Cart Page $this->selectattr
         Cart::instance('cart')->add($product_id, $product_name, $this->qty, $product_price, $this->selectattr)->associate('App\Models\Product');
         session()->flash('success_message', 'Item added in Cart!');
